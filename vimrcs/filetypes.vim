@@ -75,3 +75,67 @@ endif
 " => Twig section
 """"""""""""""""""""""""""""""
 autocmd BufRead *.twig set syntax=html filetype=html
+
+
+""""""""""""""""""""""""""""""
+" => Go lang
+"""""""""""""""""""""""""""""""
+augroup go
+  autocmd!
+
+  au FileType go nnoremap <silent> <F5> <Plug>(go-run)
+  autocmd FileType go nmap <silent> <Leader>dv <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <Leader>ds <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <Leader>dt <Plug>(go-def-tab)
+
+  autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-doc)
+  autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <silent> <Leader>gb <Plug>(go-doc-browser)
+
+  autocmd FileType go nmap <silent> <Leader>s <Plug>(go-implements)
+  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
+  autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
+
+  autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
+  autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
+  autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
+
+  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+
+  autocmd FileType go nmap <silent> <Leader>x <Plug>(go-rename)
+
+  " I like these more!
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+au FileType go let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }

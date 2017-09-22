@@ -29,7 +29,12 @@ set guioptions-=L
 
 " Colorscheme
 set background=dark
-colorscheme peaksea
+
+if has("gui_running")
+    colorscheme molokai
+else
+    colorscheme peaksea
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
